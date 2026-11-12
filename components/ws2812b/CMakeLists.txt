@@ -1,4 +1,3 @@
-idf_component_register(SRCS "ws2812b.c" "led_strip_encoder.c"
+idf_component_register(SRCS "led_strip_driver.c" "led_strip_encoder.c"
                     INCLUDE_DIRS "include"
-                    PRIV_REQUIRES driver)
-
+                    REQUIRES esp_driver_rmt)
