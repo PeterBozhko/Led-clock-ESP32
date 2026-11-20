@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "led_strip_driver.h"
 #include "colors.h"
+#include <led_clock_driver.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
@@ -8,15 +9,22 @@
 static const char *TAG = "main";
 static uint8_t buf[56 * 3];
 static led_strip_t strip;
+static led_clock_t led_clock;
 
 static uint8_t buf_2[2 * 3];
 static led_strip_t strip_2;
 
 // Первый поток
-void clock_task(void *pvParameters)
+void led_clock_task(void *pvParameters)
 {
     led_color_t color = WHITE;
     uint8_t brightness = 0xFF;
+
+    while (1){
+        clock_set_time(&led_clock, time(NULL));
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+    
     int count = 0;
     while (1)
     {
@@ -110,8 +118,10 @@ void app_main(void)
     led_init(&strip, buf, 56, led_gpio);
     led_init(&strip_2, buf_2, 2, led_gpio_2);
 
+    led_clock_init(&led_clock, &strip, 2);
+
     // Запускаем первый поток
-    xTaskCreate(clock_task, "Task1", 2048, NULL, 5, NULL);
+    xTaskCreate(led_clock_task, "Task1", 2048, NULL, 5, NULL);
     // Запускаем второй поток
     xTaskCreate(sec_task, "Task2", 2048, NULL, 5, NULL);
 }
