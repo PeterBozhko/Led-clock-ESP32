@@ -24,66 +24,6 @@ void led_clock_task(void *pvParameters)
         clock_set_time(&led_clock, time(NULL));
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
-    
-    int count = 0;
-    while (1)
-    {
-        if (brightness == 0xFF)
-            brightness = 0x11;
-        led_set_brightness(&strip, brightness);
-        ESP_LOGI(TAG, "BRIGHTNESS : %d \%", brightness);
-
-        color = WHITE;
-        ESP_LOGI(TAG, "WHITE : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        color = RED;
-        ESP_LOGI(TAG, "RED : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        color = GREEN;
-        ESP_LOGI(TAG, "GREEN : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        color = BLUE;
-        ESP_LOGI(TAG, "BLUE : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        color = YELLOW;
-        ESP_LOGI(TAG, "YELLOW : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        color = CYAN;
-        ESP_LOGI(TAG, "CYAN : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        color = MAGENTA;
-        ESP_LOGI(TAG, "MAGENTA : %d %d %d", color.r, color.g, color.b);
-        led_set_color(&strip, color);
-        led_show(&strip);
-
-        vTaskDelay(pdMS_TO_TICKS(1000));
-
-        brightness += 0x44;
-    }
 }
 
 // Второй поток
@@ -95,8 +35,8 @@ void sec_task(void *pvParameters)
         ESP_LOGI(TAG, "NEW SEC %d", enabled);
         if (enabled)
         {
-            led_set_color(&strip_2, CYAN);
-            led_set_brightness(&strip_2, 0xFF);
+            led_set_color(&strip_2, WHITE);
+            led_set_brightness(&strip_2, 0x80);
         }
         else
         {

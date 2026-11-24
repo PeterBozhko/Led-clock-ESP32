@@ -8,24 +8,21 @@
 led_color_t deactive_color = {.r = 0x00, .g = 0x00, .b = 0x00};
 
 char current_str[5] = {'0'};
-uint8_t _leds_in_segment;
 
 void clock_set_symbol(led_clock_t *clock, char symbol, uint8_t position)
 {
     uint8_t newBytes = SYMBOLS[symbol - '0'];
-    size_t offset = _leds_in_segment * 7 * position;
+    size_t offset = clock->leds_in_segment * 7 * position;
     led_color_t active_color = clock->color;
 
     for (int i = 0; i < clock->leds_in_segment * 7; i++)
     {
         if (newBytes & (1 << i / clock->leds_in_segment))
         {
-            // ESP_LOGI("LED_CLOCK", "i = %d, color = %u", offset + i, active_color);
             led_set_pixel(clock->strip, active_color, offset + i);
         }
         else
         {
-            // ESP_LOGI("LED_CLOCK", "i = %d, color = %u", offset + i, deactive_color);
             led_set_pixel(clock->strip, deactive_color, offset + i);
         }
     }
@@ -38,11 +35,9 @@ esp_err_t led_clock_init(led_clock_t *clock, led_strip_t *strip, uint8_t leds_in
 
     clock->strip = strip;
     clock->leds_in_segment = leds_in_segment;
-    _leds_in_segment = leds_in_segment;
     clock->color = WHITE;
     clock->brightness = 0x05;
 
-    // led_set_color(strip, clock->color);
     led_set_brightness(strip, clock->brightness);
     led_clear(clock->strip);
     return ESP_OK;
