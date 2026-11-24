@@ -9,7 +9,7 @@ For this project I use (hardware):
 * WS2812B LED-strip 
 * 3D-printed body with 4 7-segment displays (design by me)
 * 18650 battery
-* Charge module for battery that can make stable 5v
+* Charge module for battery that provides stable 5v output
 
 Software - Pure C and ESPIDF
 
