@@ -1,16 +1,24 @@
-# _Led clock project_
+# _Led clock_
 
-Это пет-проект цифровых часов для изучения работы с ESP32, а также изучению языка С. 
-Проект представляет собой программную часть цифровых часов на основе ESP32 и светодиодной ленты с управляемыми светодиодами WS2812B.
-Проект сделан на чистом С с ипользованием ESP_IDF и чипа ESP32.
-За сборку отвечает CMake
+This is my pet-project for studying C programming language and observing ESP32.
 
+I want to create a LED clock controlled by an esp32.
+
+For this project I use (hardware):
+* ESP32C3 Mini 
+* WS2812B LED-strip 
+* 3D-printed body with 4 7-segment displays (design by me)
+* 18650 battery
+* Charge module for battery that can make stable 5v
+
+Software - Pure C and ESPIDF
 
 ## RoadMap
-1. [x] Создать драйвер работы со светодиодами WS2812B
-2. [x] Создать программу работы с цифрами и символами на цифровом элементе 8.
-3. [x] Объединить цифры в часы
-4. [ ] Подключаться к Wi-Fi и узнавать время онлайн
-5. [ ] Создать возможность управления часами по HTTP или BT
-6. [ ] Адаптироваться под внешнее освещение (добавить датчик света)
-7. [ ] Добавить работу от батареи и контроль уровня заряда.
+0. [x] Design, print, assemble a clock, then connect it to an esp32 
+1. [x] Create a led driver for ws2812b
+2. [x] Create a driver/program/module for operating a 7-segment display
+3. [x] Combine 4 indicators into a clock
+4. [ ] Connect to wi-fi and retrive the accurate time
+5. [ ] Implement clock control (color, brightness, etc.) via HTTP (or BT?)
+6. [ ] Adapt to external brightness (add a light sensor)
+7. [ ] Use the battery and monitor its charge level
